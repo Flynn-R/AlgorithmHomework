@@ -45,7 +45,6 @@ int getPowEven(int a, int b, int& res)
 }
 
 #define SIZE 8
-int len[SIZE][SIZE];
 int field[SIZE][SIZE] = {
         { 1, 0, 0, 1, 0, 0, 0, 1 },
         { 0, 0, 1, 1, 0, 0, 0, 0 },
@@ -60,31 +59,19 @@ int field[SIZE][SIZE] = {
 // Task 3
 int pathfinder(int i, int j)
 {
-    if (len[i][j] < 0)
+    if (field[i][j])
+        return 0;
+    else if (i == 0 || j == 0)
     {
-        if (field[i][j])
-            return 0;
-        else
-        {
-            if (i == 0 && j > 1)
-                return pathfinder(i, j - 1);
-            else if (j == 0 && i > 1)
-                return pathfinder(i - 1, j);
-            else
-            {
-                if (i == 0 && j == 1)
-                    return 1;
-                else if (j == 0 && i == 1)
-                    return 1;
-                else if (len[i - 1][j] < 0)
-                    return pathfinder(i, j - 1);
-                else if (len[i][j - 1] < 0)
-                    return pathfinder(i - 1, j);
-                else
-                    return pathfinder(i - 1, j) + pathfinder(i, j - 1);
-            }
-        }
+        if (i == 1 || j == 1)
+            return 1;
+        else if (i == 0)
+            return pathfinder(i, j - 1);
+        else if (j == 0)
+            return pathfinder(i - 1, j);
     }
+    else
+        return pathfinder(i - 1, j) + pathfinder(i, j - 1);
 }
 
 int main()
@@ -112,40 +99,25 @@ int main()
     }
 
     // Task 3
-    /*{
-        for (size_t i = 0; i < SIZE; i++)
+    {
+        for (int i = 0; i < SIZE; ++i)
         {
-            for (size_t j = 0; j < SIZE; j++)
+            for (int j = 0; j < SIZE; ++j)
             {
-                if (i == 0 && j == 0)
-                    len[i][j] = 0;
-                else
-                    len[i][j] = -1;
+                printf("%5d", field[i][j]);
             }
+            printf("\n");
         }
 
-        for (size_t i = 0; i < SIZE; i++)
-        {
-            for (size_t j = 0; j < SIZE; j++)
-            {
-                if (i != 0 || j != 0)
-                {
-                    len[i][j] = pathfinder(i, j);
-                    if (len[i][j] == 0 && i == 0)
-                        break;
-                    else if (len[i][j] == 0 && j == 0)
-                        len[i + 1][j] = len[i - 1][j + 1];
-                }
-            }
-        }
+        printf("\n");
 
         for (int i = 0; i < SIZE; ++i)
         {
             for (int j = 0; j < SIZE; ++j)
             {
-                printf("%5d", len[i][j]);
+                printf("%5d", pathfinder(i, j));
             }
             printf("\n");
         }
-    }*/
+    }
 }
