@@ -18,32 +18,32 @@ void insertSort(int* arr, int len)
 
 void quickSort(int* arr, int first, int last)
 {
-    int i = first, j = last;
-    int x = arr[(first + last) / 2];
-    do
-    {
-        while (arr[i] < x) i++;
-        while (arr[j] > x) j--;
-        if (i <= j) swapInt(&arr[i++], &arr[j--]);
-    } while (i <= j);
-    if (i < last) quickSort(arr, i, last);
-    if (j > first) quickSort(arr, first, j);
-}
-
-void improvedQuickSort(int* arr, int first, int last)
-{
-    int len = last + 1;
+    int len = first + last + 1;
     if (len <= 10)
         insertSort(arr, len);
     else
     {
-        int mid = (first + last) / 2;
-        if (arr[mid] < arr[first] && arr[first] < arr[last] || arr[last] < arr[first] && arr[first] < arr[mid])
-        swapInt(&arr[first], &arr[mid]);
-        else if (arr[first] < arr[last] && arr[last] < arr[mid] || arr[mid] < arr[last] && arr[last] < arr[first])
-            swapInt(&arr[last], &arr[mid]);
-        quickSort(arr, first, last);
+        int i = first, j = last;
+        int x = arr[(first + last) / 2];
+        do
+        {
+            while (arr[i] < x) i++;
+            while (arr[j] > x) j--;
+            if (i <= j) swapInt(&arr[i++], &arr[j--]);
+        } while (i <= j);
+        if (i < last) quickSort(arr, i, last);
+        if (j > first) quickSort(arr, first, j);
     }
+}
+
+void improvedQuickSort(int* arr, int first, int last)
+{
+    int mid = (first + last) / 2;
+    if (arr[mid] < arr[first] && arr[first] < arr[last] || arr[last] < arr[first] && arr[first] < arr[mid])
+    swapInt(&arr[first], &arr[mid]);
+    else if (arr[first] < arr[last] && arr[last] < arr[mid] || arr[mid] < arr[last] && arr[last] < arr[first])
+        swapInt(&arr[last], &arr[mid]);
+    quickSort(arr, first, last);
 }
 
 void evenBucketSort(int* arr, int len)
