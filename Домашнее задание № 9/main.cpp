@@ -148,7 +148,7 @@ int pop(List* queue)
     return nodeID;
 }
 
-void sort(int* visited)
+void sort()
 {
     int temp, pos, indexArray[SIZE];
     for (int i = 0; i < SIZE; ++i)
@@ -198,7 +198,7 @@ void widthTraversalRecursive(List* queue, int startNode)
 }
 
 // Task 2.2
-int* widthTraversalAdjacency()
+void widthTraversalAdjacency()
 {
     for (int i = 0; i < SIZE; ++i)
     {
@@ -209,7 +209,6 @@ int* widthTraversalAdjacency()
                 visited[i]++;
         }
     }
-    return visited;
 }
 
 int main()
@@ -230,7 +229,7 @@ int main()
             cout << "Task 2.1: ";
             init(queue);
             widthTraversalRecursive(queue, 0);
-            sort(visited);
+            sort();
             cout << endl << endl;
         }
 
@@ -238,7 +237,8 @@ int main()
         {
             cout << "Task 2.2: ";
             init(queue);
-            sort(widthTraversalAdjacency());
+            widthTraversalAdjacency();
+            sort();
             cout << endl << endl;
         }
     }
